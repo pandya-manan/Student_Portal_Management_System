@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Student Management System Students Information</title>
+    <style>
+        #first {
+            background: radial-gradient(circle, rgba(34,195,193,0.9079831761806285) 0%, rgba(238,253,45,1) 100%);
+            background: rgb(34,195,193);
+            color: black;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            padding: 20px; /* Added padding for better appearance */
+            border: 2px solid black; /* Added border */
+            margin-bottom: 20px; /* Added margin-bottom for spacing */
+        }
+        
+        #second {
+            margin-bottom: 20px; /* Added margin-bottom for spacing */
+        }
+        
+        table {
+            margin: 0 auto; /* Centering the table */
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="first" class="row">
+        <div class="col">
+            <p>Student Management System</p>
+        </div>
+        <div class="row justify-content-end">
+<div class="col-auto pr-1">
+    <a th:href="@{/students/logout}" class="btn btn-primary">Logout</a>
+</div>
+<div class="col-auto">
+    <a th:href="@{/students/home}" class="btn btn-primary">Home</a>
+</div>
+</div>
+
+    </div>
+    <div th:if="${deleteStatus}" class="alert alert-danger mt-4 text-center" id="deleteStatusUser">
+    <strong th:text="${deleteStatus}"></strong>
+</div>
+<script>
+    // Function to hide the alert message after 5 seconds
+    setTimeout(function() {
+        var alertMessage = document.getElementById('deleteStatusUser');
+        alertMessage.style.display = 'none';
+    }, 5000); // 5 seconds in milliseconds
+</script>
+
+    <!-- New div for the table -->
+    <div id="second">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <th>User Name</th>
+                <th>Action</th>
+                
+            </thead>
+            <tbody>
+                <tr th:each="user : ${userPage.content}">
+                    <td th:text="${user.userName}"></td>
+                    <td><a th:href="@{/students/deleteUser(userId=${user.id})}" class="btn btn-danger" onclick="if(!(confirm('Are you sure you want to delete the details for this user?'))) return false">
+                        Delete
+                        </a></td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <!-- Pagination Controls -->
+    <ul class="pagination">
+    <li class="page-item" th:class="${userPage.first} ? 'disabled'">
+        <a class="page-link" th:href="@{|/students/listOfUsers?page=0&size=${userPage.size}|}">First</a>
+    </li>
+    <li class="page-item" th:class="${userPage.first} ? 'disabled'">
+        <a class="page-link" th:href="@{|/students/listOfUsers?page=${userPage.number - 1}&size=${userPage.size}|}" th:if="${!userPage.first}">Previous</a>
+    </li>
+    <li th:each="pageNumber : ${#numbers.sequence(0, userPage.totalPages - 1)}" th:class="${pageNumber == userPage.number} ? 'active'">
+        <a class="page-link" th:href="@{|/students/listOfUsers?page=${pageNumber}&size=${userPage.size}|}">[[${pageNumber + 1}]]</a>
+    </li>
+    <li class="page-item" th:class="${userPage.last} ? 'disabled'">
+        <a class="page-link" th:href="@{|/students/listOfUsers?page=${userPage.number + 1}&size=${userPage.size}|}">Next</a>
+    </li>
+    <li class="page-item" th:class="${userPage.last} ? 'disabled'">
+        <a class="page-link" th:href="@{|/students/listOfUsers?page=${userPage.totalPages - 1}&size=${userPage.size}|}">Last</a>
+    </li>
+</ul>
+
+    </div>
+   
+</body>
+</html>

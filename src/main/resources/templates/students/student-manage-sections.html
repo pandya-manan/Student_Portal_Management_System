@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sections</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        /* Shared styles */
+        .col {
+            margin-bottom: 20px; /* Added margin-bottom for spacing */
+        }
+        .form-outline {
+            width: 100%; /* Adjusted width for better appearance */
+        }
+
+        /* Style the header */
+        #first {
+            background: radial-gradient(circle, rgba(34,195,193,0.9079831761806285) 0%, rgba(238,253,45,1) 100%);
+            background: rgb(34,195,193);
+            color: black;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            padding: 20px; /* Added padding for better appearance */
+            border: 2px solid black; /* Added border */
+        }
+
+        /* Added style for form border */
+        #second {
+            border: 2px solid black;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="first" class="row">
+        <div class="col">
+            <p>Student Management System</p>
+        </div>
+        <div class="col text-right">
+            <a th:href="@{/students/logout}" class="btn btn-primary">Logout</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card mt-4 mb-4 col-sm-6" style="width:200px">
+            <img class="card-img-top" th:src="@{/images/student-png-31161.png}" alt="Card image" style="width:50%">
+            <div class="card-body">
+                <h4 class="card-title">Manage Students</h4>
+                <p class="card-text">Click here to manage the information and the details of all the students enrolled.</p>
+                <a th:href="@{/students/list}" class="btn btn-primary">Manage Students</a>
+            </div>
+        </div>
+        <div class="card mt-4 mb-4 col-sm-6" style="width:200px">
+            <img class="card-img-top" th:src="@{/images/users.png}" alt="Card image" style="width:56%">
+            <div class="card-body">
+                <h4 class="card-title">Manage Users</h4>
+                <p class="card-text">Click here to manage the users eligible to operate Student Management System</p>
+                <a th:href="@{/students/listOfUsers}" class="btn btn-primary">Manage Users</a>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</body>
+</html>

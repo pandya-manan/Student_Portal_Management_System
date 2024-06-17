@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Student Management System Students Information</title>
+    <style>
+        #first {
+            background: radial-gradient(circle, rgba(34,195,193,0.9079831761806285) 0%, rgba(238,253,45,1) 100%);
+            background: rgb(34,195,193);
+            color: black;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            padding: 20px; /* Added padding for better appearance */
+            border: 2px solid black; /* Added border */
+            margin-bottom: 20px; /* Added margin-bottom for spacing */
+        }
+        #second {
+            margin-top: 20px; /* Added margin-top to separate form from the div */
+            align-items: flex-start;
+            width: 50%; /* Adjusted width for better alignment */
+            margin: 0 auto; /* Centering the div with margin */
+            border: 2px solid black; /* Added border */
+            border-radius: 10px; /* Added border-radius for rounded corners */
+            padding: 20px; /* Added padding for better appearance */
+        }
+    </style>
+
+</head>
+<body>
+    <div id="first">
+        <p>Student Management System</p>
+    </div>
+    <div style="text-align: center;">
+        <p class="h4 mb-4 mt-4">Sign Up</p>
+    </div>
+    <div id="second">
+        <form action="#" th:action="@{/students/signup}" th:object="${toAddUser}" method="POST">
+            <div class="col">
+                <div data-mdb-input-init class="form-outline">
+                    <input type="text" th:field="*{userName}" class="form-control" id="form2Example1" placeholder="User Name"/>
+                    <label class="form-label" for="form2Example1">User Name</label>
+                </div>
+            </div>
+              <div class="col">
+    <div data-mdb-input-init class="form-outline">
+        <input type="password" th:field="*{password}" class="form-control" id="form2Example2" placeholder="Password"/>
+        <label class="form-label" for="form2Example2">Password</label>
+        <br>
+        <input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()" />
+        <label for="showPassword">Show Password</label>
+    </div>
+	</div>
+	<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("form2Example2");
+        var showPasswordCheckbox = document.getElementById("showPassword");
+
+        if (showPasswordCheckbox.checked) {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+            <div class="d-flex justify-content-center">  <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+            <div style="text-align:center;">
+            <p th:if="${cannotsignup}" class="text-danger" style="margin-bottom:10px;">Error: <span th:text="${cannotsignup}"></span></p>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>
+
+
+

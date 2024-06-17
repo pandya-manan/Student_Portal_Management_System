@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-Ky5oErE5BqFY8+avwXcXmxBxZ4h3vtr4W6Ods3uJB9Rnu4SY6M3ZMKQ3vYzz8gTFSrMXd0/kjGLDTxu2X+YpFg==" crossorigin="anonymous" />
+	
+    <title>Student Management System Students Information</title>
+    <style>
+        #first {
+            background: radial-gradient(circle, rgba(34,195,193,0.9079831761806285) 0%, rgba(238,253,45,1) 100%);
+            background: rgb(34,195,193);
+            color: black;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            padding: 20px; /* Added padding for better appearance */
+            border: 2px solid black; /* Added border */
+            margin-bottom: 20px; /* Added margin-bottom for spacing */
+        }
+        
+       
+        
+        #second {
+            margin-bottom: 20px; /* Added margin-bottom for spacing */
+        }
+        
+        table {
+            margin: 0 auto; /* Centering the table */
+        }
+        
+        #first .button
+        {
+        	align:right;
+        }
+        
+        #first .p
+        {
+        	text-align:right;
+        }
+       
+    </style>
+</head>
+<body>
+	
+    <div id="first" class="row">
+            <div class="col">
+                <p>Student Management System</p>
+            </div>
+            <div class="col text-right">
+                <a th:href="@{/students/logout}" class="btn btn-primary">Logout</a>
+            </div>
+        </div>
+      
+    <!-- New div for the table -->
+    <div id="second">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Course</th>
+                <th>Country</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.firstName}"></td>
+					<td th:text="${student.lastName}"></td>
+					<td th:text="${student.email}"></td>
+					<td th:text="${student.city}"></td>
+					<td th:text="${student.state}"></td>
+					<td th:text="${student.course}"></td>
+					<td>
+            <img th:src="${student.flag == 'IN' ? '/images/in.png' 
+                           : student.flag == 'FR' ? '/images/fr.png' 
+                           : student.flag == 'BR' ? '/images/br.png'
+                           : student.flag == 'US' ? '/images/us.png'
+                           : student.flag == 'AU' ? '/images/au.png'
+                           : ''}"
+                 th:alt="${student.flag}" />
+        </td>
+        		<td>
+        		<a th:href="@{/students/showFormForUpdate(studentId=${student.id})}" class="btn btn-primary" onclick="if(!(confirm('Are you sure you want to update the details for this student?'))) return false">
+        		Update</a>
+        		&nbsp;
+        		<a th:href="@{/students/deleteStudent(studentId=${student.id})}" class="btn btn-danger" onclick="if(!(confirm('Are you sure you want to delete the details for this student?'))) return false">
+        		Delete
+        		</a>
+        		</td>
+
+                </tr>
+            </tbody>
+        </table>
+   
+    </div>
+   <div>
+   <a th:href="@{/students/list}" class="btn btn-primary">Back to Main Page</a>
+   </div>
+
+    
+</body>
+</html>
